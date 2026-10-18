@@ -121,26 +121,6 @@
   .facts span { display: inline-flex; align-items: center; gap: 8px; }
   .facts svg { width: 17px; height: 17px; color: var(--teal); }
 
-  /* Timeline */
-  .timeline { list-style: none; position: relative; }
-  .timeline::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: var(--line); }
-  .timeline li { position: relative; padding-left: 42px; }
-  .timeline li + li { margin-top: 48px; }
-  .timeline li::before {
-    content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%;
-    background: var(--ink); border: 2px solid var(--muted);
-  }
-  .timeline li.now::before { border-color: var(--teal); background: var(--teal); box-shadow: 0 0 0 5px color-mix(in srgb, var(--teal) 22%, transparent); }
-  .t-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .t-top h3 { font-family: var(--display); font-weight: 600; font-size: 23px; letter-spacing: -.02em; line-height: 1.2; }
-  .when { color: var(--muted); font-size: 14px; white-space: nowrap; }
-  .where { color: var(--teal); font-weight: 600; font-size: 15px; margin-top: 3px; }
-  .timeline ul { list-style: none; margin-top: 14px; display: grid; gap: 8px; color: var(--muted); max-width: 44em; }
-  .timeline ul li { padding-left: 20px; margin: 0; }
-  .timeline ul li::before { width: 6px; height: 6px; top: 11px; border: 0; background: var(--line); left: 0; box-shadow: none; }
-  .timeline ul li b { color: var(--paper); font-weight: 600; }
-  .t-desc { color: var(--muted); margin-top: 10px; max-width: 44em; }
-
   /* Skills */
   .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   @media (max-width: 720px) { .skills { grid-template-columns: 1fr; } }
@@ -170,17 +150,35 @@
   .lang-note { font-size: 13px; color: var(--muted); margin-top: -8px; }
 
   /* Proyectos */
-  .repos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .repo {
-    display: flex; flex-direction: column; gap: 10px; text-decoration: none; padding: 24px;
-    background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius-lg); transition: border-color .2s, transform .2s;
+  #proyectos h2 { margin-bottom: 44px; }
+  #proyectos h2 small { max-width: 40ch; }
+  .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 960px) { .projects { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .projects { grid-template-columns: 1fr; } }
+  .project {
+    display: flex; flex-direction: column; gap: 12px; padding: 26px; min-height: 290px;
+    background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    transition: border-color .2s, transform .2s;
   }
-  .repo:hover { border-color: var(--teal); transform: translateY(-3px); }
-  .repo h3 { font-family: var(--display); font-weight: 600; font-size: 19px; word-break: break-word; }
-  .repo p { color: var(--muted); font-size: 15px; flex: 1; }
-  .repo .meta { display: flex; gap: 16px; font-size: 13px; color: var(--muted); }
-  .repo .meta b { color: var(--teal); font-weight: 600; }
-  .repos-empty { color: var(--muted); }
+  .project:not(.slot):hover { border-color: var(--teal); transform: translateY(-3px); }
+  .p-num { font-family: var(--display); font-weight: 600; font-size: 14px; color: var(--teal); letter-spacing: .04em; }
+  .project h3 { font-family: var(--display); font-weight: 600; font-size: 23px; letter-spacing: -.02em; line-height: 1.15; }
+  .project p { color: var(--muted); font-size: 15.5px; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-size: 13px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+  .p-links { display: flex; gap: 8px; margin-top: 6px; }
+  .p-links a {
+    flex: 1; text-align: center; text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 10px 14px; border-radius: 99px; border: 1px solid var(--line); transition: border-color .2s, background .2s;
+  }
+  .p-links a:first-child { background: var(--teal); color: var(--teal-ink); border-color: var(--teal); }
+  .p-links a:hover { border-color: var(--teal); }
+  .project.slot {
+    background: transparent; border-style: dashed; justify-content: space-between;
+    color: var(--muted); font-size: 15px;
+  }
+  .project.slot .p-num { color: var(--muted); }
+  @media (max-width: 620px) { .project { min-height: 0; } .project.slot { min-height: 120px; } }
 
   /* Contacto */
   .contact { text-align: left; }
@@ -216,7 +214,7 @@
     <a href="#top" class="logo">nicolás<span>.</span></a>
     <div class="nav-links">
       <a href="#sobre-mi" class="hide-sm">Sobre mí</a>
-      <a href="#experiencia" class="hide-sm">Experiencia</a>
+      <a href="#proyectos" class="hide-sm">Proyectos</a>
       <a href="#competencias" class="hide-sm">Competencias</a>
       <a href="#contacto">Contacto</a>
       <button class="theme-btn" id="themeBtn" aria-label="Cambiar entre tema claro y oscuro">
@@ -266,49 +264,52 @@
     </div>
   </section>
 
-  <section class="block" id="experiencia">
-    <div class="wrap sec-head">
-      <h2>Experiencia</h2>
-      <ol class="timeline">
-        <li class="now">
-          <div class="t-top"><h3>Desarrollador de Software (prácticas)</h3><span class="when">1 año</span></div>
-          <div class="where">Marcove</div>
-          <ul>
-            <li>Desarrollo y mantenimiento de aplicaciones en <b>Java</b> y <b>HTML</b>.</li>
-            <li>Diseño y gestión avanzada de <b>bases de datos</b>, cuidando la integridad y la eficiencia de los datos.</li>
-            <li>Uso de <b>inteligencia artificial</b> para acelerar el desarrollo, depurar código y automatizar procesos repetitivos.</li>
-            <li>Colaboración con el equipo técnico en la integración de soluciones <b>backend y frontend</b>.</li>
-          </ul>
-        </li>
-        <li>
-          <div class="t-top"><h3>Cajero / Gestor de punto de venta</h3><span class="when">1 año</span></div>
-          <ul>
-            <li>Gestión autónoma de caja y cobros, con el cuadre de caja y cada transacción al céntimo.</li>
-            <li>Control de stock: recepción de mercancía, inventario y reposición.</li>
-            <li>Atención al cliente y resolución de incidencias de forma ágil y autónoma.</li>
-          </ul>
-        </li>
-      </ol>
-    </div>
-  </section>
+  <section class="block" id="proyectos">
+    <div class="wrap">
+      <h2>Proyectos<small>Cosas que he construido. Cada una tiene su web en marcha y su código en GitHub.</small></h2>
+      <div class="projects">
 
-  <section class="block" id="formacion">
-    <div class="wrap sec-head">
-      <h2>Formación</h2>
-      <ol class="timeline">
-        <li class="now">
-          <div class="t-top"><h3>CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)</h3><span class="when">Sept. 2026 – actualidad</span></div>
-        </li>
-        <li>
-          <div class="t-top"><h3>CFGM Sistemas Microinformáticos y Redes (SMR)</h3><span class="when">2023 – 2025</span></div>
-          <div class="where">Stucom, Barcelona</div>
-          <p class="t-desc">Montaje de equipos, configuración de redes locales, servicios en red y seguridad informática.</p>
-        </li>
-        <li>
-          <div class="t-top"><h3>Educación Secundaria Obligatoria (ESO)</h3><span class="when">2019 – 2023</span></div>
-          <div class="where">Institut Angeleta Ferrer</div>
-        </li>
-      </ol>
+        <article class="project">
+          <span class="p-num">01</span>
+          <h3>Sin Moros En La Costa</h3>
+          <p>Web del juego de Madband Games: un shooter cooperativo en primera persona de 1 a 4 jugadores contra oleadas de mazorcas mutantes. Historia, personajes y una mini-demo jugable con clics.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="p-links">
+            <a href="https://rovex-nc.github.io/NohayM0rosEnlacosta/" target="_blank" rel="noopener">Ver web <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/Rovex-NC/NohayM0rosEnlacosta" target="_blank" rel="noopener">Código</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <span class="p-num">02</span>
+          <h3>rovex Anime List</h3>
+          <p>Mis animes recomendados con filtros por categoría, buscador, mis personajes favoritos y un botón que te recomienda uno al azar.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="p-links">
+            <a href="https://rovex-nc.github.io/RovexCulture/" target="_blank" rel="noopener">Ver web <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/Rovex-NC/RovexCulture" target="_blank" rel="noopener">Código</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <span class="p-num">03</span>
+          <h3>DriveKey</h3>
+          <p>Biblioteca de mods de Minecraft, emuladores de consolas clásicas y herramientas, organizada por categorías y con zona de subida protegida.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="p-links">
+            <a href="https://rovex-nc.github.io/DriveKey/" target="_blank" rel="noopener">Ver web <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/Rovex-NC/DriveKey" target="_blank" rel="noopener">Código</a>
+          </div>
+        </article>
+
+        <!-- HUECOS LIBRES: cuando tengas un proyecto nuevo, copia uno de los
+             <article class="project"> de arriba, cambia los textos y enlaces,
+             y borra uno de estos huecos. -->
+        <div class="project slot" aria-hidden="true"><span class="p-num">04</span><span>Próximamente</span></div>
+        <div class="project slot" aria-hidden="true"><span class="p-num">05</span><span>Próximamente</span></div>
+        <div class="project slot" aria-hidden="true"><span class="p-num">06</span><span>Próximamente</span></div>
+
+      </div>
     </div>
   </section>
 
@@ -347,13 +348,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="block" id="proyectos" hidden>
-    <div class="wrap sec-head">
-      <h2>Proyectos<small>Directo desde mi GitHub</small></h2>
-      <div class="repos" id="repos"><p class="repos-empty">Cargando repositorios…</p></div>
     </div>
   </section>
 
@@ -414,26 +408,10 @@
     setTimeout(() => copyBtn.textContent = "Copiar", 1800);
   });
 
-  // GitHub: botón + proyectos
+  // Botón de GitHub
   if (GITHUB_USER) {
     const gh = document.getElementById("ghBtn");
     gh.href = "https://github.com/" + GITHUB_USER; gh.hidden = false;
-    const sec = document.getElementById("proyectos"); sec.hidden = false;
-    const box = document.getElementById("repos");
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`)
-      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(list => {
-        const repos = list.filter(r => !r.fork && r.name.toLowerCase() !== `${GITHUB_USER.toLowerCase()}.github.io`).slice(0, 6);
-        if (!repos.length) { box.innerHTML = '<p class="repos-empty">Todavía no hay repositorios públicos. Pronto habrá proyectos aquí.</p>'; return; }
-        const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-        box.innerHTML = repos.map(r => `
-          <a class="repo" href="${esc(r.html_url)}" target="_blank" rel="noopener">
-            <h3>${esc(r.name.replace(/[-_]/g, " "))}</h3>
-            <p>${esc(r.description || "Sin descripción todavía.")}</p>
-            <div class="meta">${r.language ? `<b>${esc(r.language)}</b>` : ""}<span>★ ${r.stargazers_count}</span><span>${new Date(r.updated_at).toLocaleDateString("es-ES", { month: "short", year: "numeric" })}</span></div>
-          </a>`).join("");
-      })
-      .catch(() => { box.innerHTML = `<p class="repos-empty">No se han podido cargar los repos. Míralos directamente en <a href="https://github.com/${GITHUB_USER}">github.com/${GITHUB_USER}</a>.</p>`; });
   }
 
   // ===== Red de nodos del hero =====
@@ -452,27 +430,34 @@
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const count = W < 720 ? 26 : 54;
-      nodes = Array.from({ length: count }, (_, i) => ({
-        x: W * (0.25 + Math.random() * 0.75), y: Math.random() * H,
-        vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
-        r: i < labels.length ? 3.2 : 1.8,
-        label: i < labels.length && (W >= 720 || i < 7) ? labels[i] : null
-      }));
+      // Cada nodo tiene una posición "casa" a la que vuelve con un muelle suave.
+      // Así la red se deforma con el ratón pero nunca se amontona ni se rompe.
+      nodes = Array.from({ length: count }, (_, i) => {
+        const hx = W * (0.25 + Math.random() * 0.75), hy = H * (0.04 + Math.random() * 0.92);
+        return {
+          hx, hy, x: hx, y: hy, vx: 0, vy: 0,
+          p: Math.random() * Math.PI * 2, s: 0.6 + Math.random() * 0.8,
+          r: i < labels.length ? 3.2 : 1.8,
+          label: i < labels.length && (W >= 720 || i < 7) ? labels[i] : null
+        };
+      });
     }
 
-    function frame() {
+    function frame(t = 0) {
       const teal = color("--teal"), line = color("--line"), muted = color("--muted");
       ctx.clearRect(0, 0, W, H);
       const linkDist = W < 720 ? 110 : 150;
       for (const n of nodes) {
         if (!reduce) {
-          const dx = mouse.x - n.x, dy = mouse.y - n.y, d = Math.hypot(dx, dy);
-          if (d < 180 && d > 1) { n.vx += dx / d * .03; n.vy += dy / d * .03; }
-          n.vx *= .985; n.vy *= .985;
-          n.vx += (Math.random() - .5) * .02; n.vy += (Math.random() - .5) * .02;
+          // deriva lenta alrededor de su casa
+          const tx = n.hx + Math.cos(t * .00035 * n.s + n.p) * 16;
+          const ty = n.hy + Math.sin(t * .0003 * n.s + n.p) * 16;
+          n.vx += (tx - n.x) * .006; n.vy += (ty - n.y) * .006;
+          // el ratón aparta un poco los nodos (como una lupa), sin arrastrarlos
+          const dx = n.x - mouse.x, dy = n.y - mouse.y, d = Math.hypot(dx, dy);
+          if (d < 160 && d > 1) { const f = (1 - d / 160) * .18; n.vx += dx / d * f; n.vy += dy / d * f; }
+          n.vx *= .9; n.vy *= .9;
           n.x += n.vx; n.y += n.vy;
-          if (n.x < 0 || n.x > W) n.vx *= -1;
-          if (n.y < 0 || n.y > H) n.vy *= -1;
         }
       }
       for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
