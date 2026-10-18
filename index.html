@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nicolás Texeira Rovira — Desarrollador de Software</title>
+<meta name="description" content="Portafolio de Nicolás Texeira Rovira, desarrollador de software junior en Barcelona. Java, bases de datos, sistemas y redes.">
+<meta property="og:title" content="Nicolás Texeira Rovira — Desarrollador de Software">
+<meta property="og:description" content="Java, bases de datos, sistemas y redes. Barcelona.">
+<meta name="theme-color" content="#0f1d33">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1d33'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='%235fd4b8'%3ENT%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== Tokens ===== */
+  :root {
+    --ink: #0f1d33;        /* fondo principal, el azul de tu CV */
+    --ink-2: #16294a;      /* superficies */
+    --line: #26395c;       /* bordes */
+    --paper: #eef3f8;      /* texto principal */
+    --muted: #93a4bf;      /* texto secundario */
+    --teal: #5fd4b8;       /* acento, el verde de tu CV */
+    --teal-ink: #0b2a26;
+    --sun: #ffcf6e;        /* acento secundario, solo para el "online" */
+    --radius-lg: 22px;
+    --radius-sm: 10px;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Figtree", system-ui, sans-serif;
+    --max: 1120px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --ink: #f4f7fb; --ink-2: #ffffff; --line: #d6dfeb;
+      --paper: #0f1d33; --muted: #52627d; --teal: #138a72; --teal-ink: #e3f6f1; --sun: #b9770e;
+    }
+  }
+  :root[data-theme="light"] {
+    --ink: #f4f7fb; --ink-2: #ffffff; --line: #d6dfeb;
+    --paper: #0f1d33; --muted: #52627d; --teal: #138a72; --teal-ink: #e3f6f1; --sun: #b9770e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--ink); color: var(--paper);
+    font-family: var(--body); font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    transition: background .3s, color .3s;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Nav ===== */
+  nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 20;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--ink) 72%, transparent);
+    border-bottom: 1px solid transparent; transition: border-color .3s;
+  }
+  nav.scrolled { border-bottom-color: var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 20px; text-decoration: none; letter-spacing: -.02em; }
+  .logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 15px; padding: 8px 12px; border-radius: 99px; transition: color .2s, background .2s; }
+  .nav-links a:hover { color: var(--paper); background: var(--ink-2); }
+  .theme-btn {
+    width: 38px; height: 38px; border-radius: 99px; border: 1px solid var(--line);
+    background: transparent; color: var(--paper); cursor: pointer; display: grid; place-items: center; margin-left: 6px;
+  }
+  .theme-btn svg { width: 18px; height: 18px; }
+  @media (max-width: 720px) { .nav-links a.hide-sm { display: none; } }
+
+  /* ===== Hero ===== */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; }
+  #net { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 70% at 22% 55%, var(--ink) 25%, transparent 75%);
+  }
+  .hero .wrap { position: relative; z-index: 2; padding-top: 90px; padding-bottom: 60px; }
+  .status {
+    display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 99px; padding: 6px 14px 6px 10px; background: var(--ink-2);
+  }
+  .status i { width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 0 var(--teal); animation: ping 2.4s infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 60%, transparent); } 80%,100% { box-shadow: 0 0 0 10px transparent; } }
+  h1 {
+    font-family: var(--display); font-weight: 800; letter-spacing: -.045em; line-height: .9;
+    font-size: clamp(56px, 11vw, 148px); margin: 28px 0 26px; max-width: 9ch;
+  }
+  h1 .last { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--paper); }
+  .lede { font-size: clamp(18px, 2.1vw, 22px); color: var(--muted); max-width: 34ch; line-height: 1.5; }
+  .lede strong { color: var(--paper); font-weight: 600; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 16px;
+    padding: 14px 22px; border-radius: 99px; border: 1px solid var(--line); transition: transform .15s, background .2s, border-color .2s;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn:hover { transform: translateY(-2px); border-color: var(--teal); }
+  .btn.primary { background: var(--teal); color: var(--teal-ink); border-color: var(--teal); }
+  .btn.primary:hover { background: color-mix(in srgb, var(--teal) 85%, white); }
+  .hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 2; color: var(--muted); font-size: 13px; }
+  @media (max-width: 720px) { .hint { display: none; } }
+
+  /* ===== Sections ===== */
+  section.block { padding: 110px 0; border-top: 1px solid var(--line); }
+  .sec-head { display: grid; grid-template-columns: 260px 1fr; gap: 40px; }
+  @media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; gap: 20px; } section.block { padding: 80px 0; } }
+  h2 { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 4vw, 44px); letter-spacing: -.03em; line-height: 1.05; }
+  h2 small { display: block; font-family: var(--body); font-weight: 400; font-size: 15px; letter-spacing: 0; color: var(--muted); margin-top: 10px; }
+
+  /* Sobre mí */
+  .about p { font-size: clamp(20px, 2.4vw, 27px); line-height: 1.45; letter-spacing: -.01em; max-width: 30em; }
+  .about p + p { margin-top: 22px; font-size: 18px; color: var(--muted); line-height: 1.65; max-width: 44em; }
+  .facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 34px; color: var(--muted); font-size: 15px; }
+  .facts span { display: inline-flex; align-items: center; gap: 8px; }
+  .facts svg { width: 17px; height: 17px; color: var(--teal); }
+
+  /* Timeline */
+  .timeline { list-style: none; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: var(--line); }
+  .timeline li { position: relative; padding-left: 42px; }
+  .timeline li + li { margin-top: 48px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--ink); border: 2px solid var(--muted);
+  }
+  .timeline li.now::before { border-color: var(--teal); background: var(--teal); box-shadow: 0 0 0 5px color-mix(in srgb, var(--teal) 22%, transparent); }
+  .t-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .t-top h3 { font-family: var(--display); font-weight: 600; font-size: 23px; letter-spacing: -.02em; line-height: 1.2; }
+  .when { color: var(--muted); font-size: 14px; white-space: nowrap; }
+  .where { color: var(--teal); font-weight: 600; font-size: 15px; margin-top: 3px; }
+  .timeline ul { list-style: none; margin-top: 14px; display: grid; gap: 8px; color: var(--muted); max-width: 44em; }
+  .timeline ul li { padding-left: 20px; margin: 0; }
+  .timeline ul li::before { width: 6px; height: 6px; top: 11px; border: 0; background: var(--line); left: 0; box-shadow: none; }
+  .timeline ul li b { color: var(--paper); font-weight: 600; }
+  .t-desc { color: var(--muted); margin-top: 10px; max-width: 44em; }
+
+  /* Skills */
+  .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .skills { grid-template-columns: 1fr; } }
+  .panel { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px; }
+  .panel.wide { grid-column: 1 / -1; }
+  .panel h3 { font-family: var(--display); font-weight: 600; font-size: 20px; letter-spacing: -.01em; margin-bottom: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 15px; padding: 8px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--ink);
+    cursor: default; transition: border-color .2s, color .2s;
+  }
+  .chip.dev { border-color: color-mix(in srgb, var(--teal) 55%, var(--line)); }
+  .chip:hover { border-color: var(--teal); color: var(--teal); }
+  .legend { display: flex; gap: 18px; margin-top: 18px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { width: 12px; height: 12px; border-radius: 99px; border: 1px solid var(--line); }
+  .legend i.dev { border-color: color-mix(in srgb, var(--teal) 55%, var(--line)); }
+  .soft { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; }
+  .soft li { display: flex; gap: 10px; align-items: baseline; }
+  .soft li::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--teal); transform: rotate(45deg) translateY(-2px); flex: none; }
+  @media (max-width: 420px) { .soft { grid-template-columns: 1fr; } }
+  .lang { display: grid; gap: 18px; }
+  .lang-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; }
+  .lang-row span:nth-child(2) { color: var(--muted); font-size: 14px; }
+  .bar { grid-column: 1 / -1; height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--teal); border-radius: 99px; width: var(--w); }
+  .lang-note { font-size: 13px; color: var(--muted); margin-top: -8px; }
+
+  /* Proyectos */
+  .repos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .repo {
+    display: flex; flex-direction: column; gap: 10px; text-decoration: none; padding: 24px;
+    background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius-lg); transition: border-color .2s, transform .2s;
+  }
+  .repo:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .repo h3 { font-family: var(--display); font-weight: 600; font-size: 19px; word-break: break-word; }
+  .repo p { color: var(--muted); font-size: 15px; flex: 1; }
+  .repo .meta { display: flex; gap: 16px; font-size: 13px; color: var(--muted); }
+  .repo .meta b { color: var(--teal); font-weight: 600; }
+  .repos-empty { color: var(--muted); }
+
+  /* Contacto */
+  .contact { text-align: left; }
+  .contact h2 { font-size: clamp(40px, 7vw, 88px); line-height: .95; letter-spacing: -.045em; font-weight: 800; max-width: 12ch; }
+  .mail {
+    display: inline-flex; align-items: center; gap: 14px; margin-top: 34px; text-decoration: none;
+    font-family: var(--display); font-size: clamp(20px, 3.4vw, 34px); font-weight: 600; letter-spacing: -.02em;
+    border-bottom: 2px solid var(--teal); padding-bottom: 4px; word-break: break-all;
+  }
+  .copy {
+    border: 1px solid var(--line); background: var(--ink-2); color: var(--paper); border-radius: 99px;
+    font: 500 14px var(--body); padding: 8px 14px; cursor: pointer; margin-left: 10px; vertical-align: middle;
+  }
+  .copy:hover { border-color: var(--teal); }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  /* Entrada única del hero */
+  .rise { opacity: 0; transform: translateY(18px); animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+  .d1 { animation-delay: .05s } .d2 { animation-delay: .18s } .d3 { animation-delay: .32s } .d4 { animation-delay: .46s }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .rise { animation: none; opacity: 1; transform: none; }
+    .status i { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">nicolás<span>.</span></a>
+    <div class="nav-links">
+      <a href="#sobre-mi" class="hide-sm">Sobre mí</a>
+      <a href="#experiencia" class="hide-sm">Experiencia</a>
+      <a href="#competencias" class="hide-sm">Competencias</a>
+      <a href="#contacto">Contacto</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Cambiar entre tema claro y oscuro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="status rise d1"><i></i> Abierto a oportunidades · Barcelona</div>
+    <h1 class="rise d2">Nicolás <span class="last">Texeira</span></h1>
+    <p class="lede rise d3">Desarrollador de software junior. <strong>Java, bases de datos</strong> y una base sólida en <strong>sistemas y redes</strong>.</p>
+    <div class="cta rise d4">
+      <a class="btn primary" href="cv.pdf" download="CV_Nicolas_Texeira_Rovira.pdf">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        Descargar CV
+      </a>
+      <a class="btn" href="#contacto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Contactar
+      </a>
+      <a class="btn" id="ghBtn" href="#" target="_blank" rel="noopener" hidden>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+  <div class="hint">Mueve el ratón sobre la red</div>
+</header>
+
+<main>
+  <section class="block" id="sobre-mi">
+    <div class="wrap sec-head">
+      <h2>Sobre mí</h2>
+      <div class="about">
+        <p>Llevo un año desarrollando y manteniendo aplicaciones en Java y HTML, y diseñando las bases de datos que hay detrás.</p>
+        <p>Ahora curso el CFGS de Desarrollo de Aplicaciones Multiplataforma (DAM), después de terminar el CFGM de Sistemas Microinformáticos y Redes. Esa mezcla me da algo que me gusta mucho: entiendo tanto el código como la máquina y la red donde se ejecuta. Uso herramientas de IA a diario para desarrollar más rápido, depurar y automatizar lo repetitivo. Soy autodidacta, resolutivo y he trabajado cara a cara con clientes.</p>
+        <div class="facts">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Sant Cugat del Vallès, Barcelona</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>Cursando DAM</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Catalán, castellano e inglés</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experiencia">
+    <div class="wrap sec-head">
+      <h2>Experiencia</h2>
+      <ol class="timeline">
+        <li class="now">
+          <div class="t-top"><h3>Desarrollador de Software (prácticas)</h3><span class="when">1 año</span></div>
+          <div class="where">Marcove</div>
+          <ul>
+            <li>Desarrollo y mantenimiento de aplicaciones en <b>Java</b> y <b>HTML</b>.</li>
+            <li>Diseño y gestión avanzada de <b>bases de datos</b>, cuidando la integridad y la eficiencia de los datos.</li>
+            <li>Uso de <b>inteligencia artificial</b> para acelerar el desarrollo, depurar código y automatizar procesos repetitivos.</li>
+            <li>Colaboración con el equipo técnico en la integración de soluciones <b>backend y frontend</b>.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="t-top"><h3>Cajero / Gestor de punto de venta</h3><span class="when">1 año</span></div>
+          <ul>
+            <li>Gestión autónoma de caja y cobros, con el cuadre de caja y cada transacción al céntimo.</li>
+            <li>Control de stock: recepción de mercancía, inventario y reposición.</li>
+            <li>Atención al cliente y resolución de incidencias de forma ágil y autónoma.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="formacion">
+    <div class="wrap sec-head">
+      <h2>Formación</h2>
+      <ol class="timeline">
+        <li class="now">
+          <div class="t-top"><h3>CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)</h3><span class="when">Sept. 2026 – actualidad</span></div>
+        </li>
+        <li>
+          <div class="t-top"><h3>CFGM Sistemas Microinformáticos y Redes (SMR)</h3><span class="when">2023 – 2025</span></div>
+          <div class="where">Stucom, Barcelona</div>
+          <p class="t-desc">Montaje de equipos, configuración de redes locales, servicios en red y seguridad informática.</p>
+        </li>
+        <li>
+          <div class="t-top"><h3>Educación Secundaria Obligatoria (ESO)</h3><span class="when">2019 – 2023</span></div>
+          <div class="where">Institut Angeleta Ferrer</div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="competencias">
+    <div class="wrap sec-head">
+      <h2>Competencias</h2>
+      <div class="skills">
+        <div class="panel wide">
+          <h3>Técnicas</h3>
+          <div class="chips">
+            <span class="chip dev">Java</span>
+            <span class="chip dev">HTML</span>
+            <span class="chip dev">Bases de datos</span>
+            <span class="chip dev">Backend / Frontend</span>
+            <span class="chip dev">IA aplicada al desarrollo</span>
+            <span class="chip">Redes locales</span>
+            <span class="chip">Servicios en red</span>
+            <span class="chip">Seguridad informática</span>
+            <span class="chip">Montaje de equipos</span>
+          </div>
+          <div class="legend"><span><i class="dev"></i>Desarrollo</span><span><i></i>Sistemas y redes</span></div>
+        </div>
+        <div class="panel">
+          <h3>Personales</h3>
+          <ul class="soft">
+            <li>Liderazgo</li><li>Trabajo en equipo</li><li>Curiosidad</li><li>Compromiso</li><li>Autoaprendizaje</li><li>Resolución de problemas</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Idiomas</h3>
+          <div class="lang">
+            <div class="lang-row"><span>Catalán</span><span>Nativo</span><div class="bar"><i style="--w:100%"></i></div></div>
+            <div class="lang-row"><span>Castellano</span><span>Nativo</span><div class="bar"><i style="--w:100%"></i></div></div>
+            <div class="lang-row"><span>Inglés</span><span>B2–C1</span><div class="bar"><i style="--w:78%"></i></div></div>
+            <p class="lang-note">Certificación de inglés en curso.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="proyectos" hidden>
+    <div class="wrap sec-head">
+      <h2>Proyectos<small>Directo desde mi GitHub</small></h2>
+      <div class="repos" id="repos"><p class="repos-empty">Cargando repositorios…</p></div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contacto">
+    <div class="wrap">
+      <h2>¿Hablamos?</h2>
+      <p class="lede" style="margin-top:22px">Busco un equipo donde seguir aprendiendo y aportar desde el primer día. Escríbeme y te respondo pronto.</p>
+      <div>
+        <a class="mail" href="mailto:texeiraroviran@gmail.com">texeiraroviran@gmail.com</a>
+        <button class="copy" id="copyBtn" type="button">Copiar</button>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="cv.pdf" download="CV_Nicolas_Texeira_Rovira.pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          Descargar CV
+        </a>
+        <a class="btn" href="cv.pdf" target="_blank" rel="noopener">Ver CV en el navegador</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Nicolás Texeira Rovira</span>
+    <span>Sant Cugat del Vallès, Barcelona</span>
+  </div>
+</footer>
+
+<script>
+  /* =========================================================
+     CONFIGURACIÓN: pon aquí tu usuario de GitHub.
+     Con eso aparece el botón de GitHub y la sección Proyectos
+     se rellena sola con tus repos públicos.
+     ========================================================= */
+  const GITHUB_USER = "Rovex-NC";
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Nav con borde al hacer scroll
+  const nav = document.getElementById("nav");
+  addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 20), { passive: true });
+
+  // Tema claro / oscuro (se recuerda en este navegador)
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById("themeBtn").addEventListener("click", () => {
+    const isLight = getComputedStyle(root).getPropertyValue("--ink").trim().toLowerCase() === "#f4f7fb";
+    root.dataset.theme = isLight ? "dark" : "light";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+
+  // Copiar email
+  const copyBtn = document.getElementById("copyBtn");
+  copyBtn.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText("texeiraroviran@gmail.com"); copyBtn.textContent = "Copiado"; }
+    catch (e) { copyBtn.textContent = "No se pudo copiar"; }
+    setTimeout(() => copyBtn.textContent = "Copiar", 1800);
+  });
+
+  // GitHub: botón + proyectos
+  if (GITHUB_USER) {
+    const gh = document.getElementById("ghBtn");
+    gh.href = "https://github.com/" + GITHUB_USER; gh.hidden = false;
+    const sec = document.getElementById("proyectos"); sec.hidden = false;
+    const box = document.getElementById("repos");
+    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=30`)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(list => {
+        const repos = list.filter(r => !r.fork && r.name.toLowerCase() !== `${GITHUB_USER.toLowerCase()}.github.io`).slice(0, 6);
+        if (!repos.length) { box.innerHTML = '<p class="repos-empty">Todavía no hay repositorios públicos. Pronto habrá proyectos aquí.</p>'; return; }
+        const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+        box.innerHTML = repos.map(r => `
+          <a class="repo" href="${esc(r.html_url)}" target="_blank" rel="noopener">
+            <h3>${esc(r.name.replace(/[-_]/g, " "))}</h3>
+            <p>${esc(r.description || "Sin descripción todavía.")}</p>
+            <div class="meta">${r.language ? `<b>${esc(r.language)}</b>` : ""}<span>★ ${r.stargazers_count}</span><span>${new Date(r.updated_at).toLocaleDateString("es-ES", { month: "short", year: "numeric" })}</span></div>
+          </a>`).join("");
+      })
+      .catch(() => { box.innerHTML = `<p class="repos-empty">No se han podido cargar los repos. Míralos directamente en <a href="https://github.com/${GITHUB_USER}">github.com/${GITHUB_USER}</a>.</p>`; });
+  }
+
+  // ===== Red de nodos del hero =====
+  (() => {
+    const canvas = document.getElementById("net");
+    const ctx = canvas.getContext("2d");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const labels = ["Java", "HTML", "SQL", "Backend", "Frontend", "IA", "LAN", "TCP/IP", "DNS", "DHCP", "Seguridad", "Hardware", "Git", "DAM", "SMR"];
+    let W, H, dpr, nodes = [], mouse = { x: -9999, y: -9999 };
+
+    function color(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+    function setup() {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = W < 720 ? 26 : 54;
+      nodes = Array.from({ length: count }, (_, i) => ({
+        x: W * (0.25 + Math.random() * 0.75), y: Math.random() * H,
+        vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
+        r: i < labels.length ? 3.2 : 1.8,
+        label: i < labels.length && (W >= 720 || i < 7) ? labels[i] : null
+      }));
+    }
+
+    function frame() {
+      const teal = color("--teal"), line = color("--line"), muted = color("--muted");
+      ctx.clearRect(0, 0, W, H);
+      const linkDist = W < 720 ? 110 : 150;
+      for (const n of nodes) {
+        if (!reduce) {
+          const dx = mouse.x - n.x, dy = mouse.y - n.y, d = Math.hypot(dx, dy);
+          if (d < 180 && d > 1) { n.vx += dx / d * .03; n.vy += dy / d * .03; }
+          n.vx *= .985; n.vy *= .985;
+          n.vx += (Math.random() - .5) * .02; n.vy += (Math.random() - .5) * .02;
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        }
+      }
+      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < linkDist) {
+          const near = Math.hypot(mouse.x - (a.x + b.x) / 2, mouse.y - (a.y + b.y) / 2) < 160;
+          ctx.strokeStyle = near ? teal : line;
+          ctx.globalAlpha = (1 - d / linkDist) * (near ? .9 : .8);
+          ctx.lineWidth = near ? 1.3 : 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.font = "500 13px Figtree, sans-serif";
+      for (const n of nodes) {
+        const near = Math.hypot(mouse.x - n.x, mouse.y - n.y) < 160;
+        ctx.fillStyle = near || n.label ? teal : muted;
+        ctx.globalAlpha = n.label ? 1 : .6;
+        ctx.beginPath(); ctx.arc(n.x, n.y, near ? n.r + 1.5 : n.r, 0, Math.PI * 2); ctx.fill();
+        if (n.label) { ctx.globalAlpha = near ? 1 : .7; ctx.fillStyle = near ? teal : muted; ctx.fillText(n.label, n.x + 9, n.y + 4); }
+      }
+      ctx.globalAlpha = 1;
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    const hero = canvas.parentElement;
+    hero.addEventListener("pointermove", e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+    hero.addEventListener("pointerleave", () => { mouse.x = mouse.y = -9999; });
+    addEventListener("resize", () => { setup(); if (reduce) frame(); });
+    new MutationObserver(() => { if (reduce) frame(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    setup(); frame();
+  })();
+</script>
+</body>
+</html>
